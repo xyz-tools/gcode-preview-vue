@@ -3,23 +3,25 @@ hello: world
 ---
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { STLExporter } from 'three/addons/exporters/STLExporter.js';
 
-  const preview = ref();
+const layerHeight = ref(0.2);
+const lineWidth = ref(0.6);
+const preview = ref();
 let link;
 
 onMounted(() => {
-  console.log('onmounted')
-
-link= document.createElement( 'a' );
-      link.style.display = 'none';
-      document.body.appendChild( link );
+  link = document.createElement('a');
+  link.style.display = 'none';
+  document.body.appendChild(link);
 });
 
-function handleExport(e) {
-  console.log('exporting...');
+onBeforeUnmount(() => {
+  link?.remove();
+});
 
+function handleExport() {
   // Instantiate an exporter
   const exporter = new STLExporter();
 
@@ -27,9 +29,8 @@ function handleExport(e) {
   const options = { binary: true }
 
   // Parse the input and generate the STL encoded output
-  const mesh =  preview.value.getModel();
-  console.log(mesh)
-  const result = exporter.parse(mesh, options );
+  const mesh = preview.value.getModel();
+  const result = exporter.parse(mesh, options);
 
   const file = 'model.stl';
   if (options.binary) {
@@ -41,9 +42,11 @@ function handleExport(e) {
 }
 
 function save( blob, filename ) {
-  link.href = URL.createObjectURL( blob );
+  const url = URL.createObjectURL(blob);
+  link.href = url;
   link.download = filename;
   link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
 function saveString( text, filename ) {
@@ -58,11 +61,31 @@ function saveArrayBuffer( buffer, filename ) {
 # Exporting
 
 ```
-<GCodePreview src="benchy.gcode" />
-```
+<input type="number" />
+<input type="number" />
 
-<GCodePreview ref="preview" src="benchy.gcode" />
+<GCodePreview src="benchy.gcode" />
+
+```
+<div class="mb-3">
+<label>Layer height</label> <input v-model.number="layerHeight" type="number" min="0.01" step="0.05" />
+</div>
+<div class="">
+<label>Line width</label> <input v-model.number="lineWidth" type="number" min="0.01" step="0.05" />
+</div>
+
+<GCodePreview ref="preview" src="benchy.gcode" :layerHeight="layerHeight" :lineWidth="lineWidth"  />
 
 <button @click.prevent="handleExport">Export</button>
-<style module>
+<style >
+  input {
+    border: 2px solid black;
+    margin-bottom: 5px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    input {
+      border: 2px solid white;
+    }
+  }
 </style>

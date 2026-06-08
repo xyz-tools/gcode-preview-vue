@@ -15,7 +15,8 @@ export default {
     lastSegmentColor: String,
     endLayer: Number,
     startLayer: Number,
-    lineWidth: Number
+    lineWidth: Number,
+    layerHeight: Number
   },
 
   data() {
@@ -33,19 +34,38 @@ export default {
       startLayer: this.startLayer,
       topLayerColor: this.topLayerColor,
       lastSegmentColor: this.lastSegmentColor,
-      lineWidth: this.lineWidth,
       buildVolume: { x: 250, y: 220, z: 150 },
       initialCameraPosition: [0, 400, 450],
       extrusionColor: 'cyan',
-      extrusionWidth: 1.1,
+      extrusionWidth: this.lineWidth ?? 1.1,
+      lineHeight: this.layerHeight ?? 0.2
     });
 
-    window.addEventListener('resize', () => {
+    this.resizeHandler = () => {
       this.preview.resize();
-    });
+    };
+    window.addEventListener('resize', this.resizeHandler);
 
     const lines1 = await this.fetchGcode(this.src);
     this.loadPreviewChunked(lines1, 50);
+  },
+
+  beforeUnmount() {
+    window.removeEventListener('resize', this.resizeHandler);
+    this.preview?.dispose();
+  },
+
+  watch: {
+    layerHeight(value) {
+      if (!this.preview || value == null) return;
+      this.preview.lineHeight = value;
+      this.preview.render();
+    },
+    lineWidth(value) {
+      if (!this.preview || value == null) return;
+      this.preview.extrusionWidth = value;
+      this.preview.render();
+    }
   },
 
   methods: {
