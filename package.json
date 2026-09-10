@@ -12,11 +12,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vitepress": "^1.4.1"
+    "vitepress": "^1.6.4"
   },
   "dependencies": {
     "gcode-preview": "^3.0.0-alpha.6",
-    "three": "^0.169.0"
+    "three": "^0.185.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "*"
