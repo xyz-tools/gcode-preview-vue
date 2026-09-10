@@ -15,10 +15,10 @@
     "vitepress": "^1.4.1"
   },
   "dependencies": {
-    "gcode-preview": "3.0.0-alpha.1",
+    "gcode-preview": "^3.0.0-alpha.6",
     "three": "^0.169.0"
   },
   "optionalDependencies": {
-        "@rollup/rollup-linux-x64-gnu": "*"
-    }
+    "@rollup/rollup-linux-x64-gnu": "*"
+  }
 }

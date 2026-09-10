@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import * as GCodePreview from 'gcode-preview';
+import { GCodePreview } from 'gcode-preview';
 const chunkSize = Infinity;
 
 export default {
@@ -26,8 +26,8 @@ export default {
   },
 
   async mounted() {
-    this.preview = new GCodePreview.init({
-      allowDragNDrop: true,
+    this.preview = new GCodePreview({
+      droppable: true,
       renderTubes: true,
       canvas: this.$refs.preview,
       endLayer: this.endLayer,
@@ -42,7 +42,7 @@ export default {
     });
 
     this.resizeHandler = () => {
-      this.preview.resize();
+      this.preview.sceneManager.resize();
     };
     window.addEventListener('resize', this.resizeHandler);
 
@@ -58,13 +58,13 @@ export default {
   watch: {
     layerHeight(value) {
       if (!this.preview || value == null) return;
-      this.preview.lineHeight = value;
-      this.preview.render();
+      this.preview.sceneManager.lineHeight = value;
+      this.preview.sceneManager.render();
     },
     lineWidth(value) {
       if (!this.preview || value == null) return;
-      this.preview.extrusionWidth = value;
-      this.preview.render();
+      this.preview.sceneManager.extrusionWidth = value;
+      this.preview.sceneManager.render();
     }
   },
 
@@ -103,7 +103,7 @@ export default {
       loadProgressive();
     },
     getModel() {
-      return this.preview.scene;
+      return this.preview.sceneManager.scene;
     }
   }
 };
