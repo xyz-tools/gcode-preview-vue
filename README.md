@@ -124,13 +124,13 @@ canvas. It has `aria-label="G-code preview"` unless you pass your own. A
 
 ## Development
 
-This repo also holds a VitePress demo site, which imports the component from
-`src/`.
+This repo also holds a small Vite demo app (`index.html`, `demo/`), which imports
+the component from `src/`.
 
 ```sh
 npm install
-npm run dev            # demo site (same as docs:dev)
-npm run docs:build     # build the demo site into .vitepress/dist (deployed to Firebase)
+npm run dev            # demo app
+npm run build:demo     # build the demo app into build/ (deployed to Firebase)
 npm run build          # build the library into dist/
 npm test               # unit tests (vitest)
 npm run typecheck

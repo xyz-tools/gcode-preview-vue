@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "gcode-preview-examples",
-    "public": ".vitepress/dist",
+    "public": "build",
     
     "ignore": [
       "firebase.json",

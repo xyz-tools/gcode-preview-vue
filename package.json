@@ -32,15 +32,14 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vite build && vue-tsc -p tsconfig.build.json",
+    "dev": "vite",
+    "build": "vite build -c vite.lib.config.ts && vue-tsc -p tsconfig.build.json",
+    "build:demo": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
     "prepack": "npm run build",
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit",
-    "lint:package": "publint",
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "lint:package": "publint"
   },
   "peerDependencies": {
     "gcode-preview": "^3.0.0-alpha.6",
@@ -53,10 +52,8 @@
     "gcode-preview": "^3.0.0-alpha.6",
     "happy-dom": "^20.14.5",
     "publint": "^0.3.25",
-    "three": "^0.185.1",
     "typescript": "~5.9.3",
     "vite": "^8.3.2",
-    "vitepress": "^1.6.4",
     "vitest": "^5.0.3",
     "vue": "^3.5.13",
     "vue-tsc": "^3.3.12"
