@@ -1,0 +1,15 @@
+body {
+  font-family: system-ui, sans-serif;
+  text-align: center;
+  margin: 40px 16px;
+}
+
+/* The component renders a bare canvas; its size comes from here. */
+.gcode-preview {
+  display: block;
+  outline: none;
+  width: 100%;
+  max-width: 900px;
+  height: 450px;
+  margin: 0 auto;
+}
