@@ -1,13 +1,12 @@
 // .vitepress/config.js
 export default {
-  // site-level options
   title: 'GCode Preview examples',
-  description: 'Just playing around.',
+  description: 'Live examples of the gcode-preview library.',
   // README.md documents the package, it isn't a demo page.
   srcExclude: ['README.md'],
 
   themeConfig: {
-    // theme-level options
+    socialLinks: [{ icon: 'github', link: 'https://github.com/xyz-tools/gcode-preview' }]
   },
 
   vite: {

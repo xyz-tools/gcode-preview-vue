@@ -1,7 +1,3 @@
----
-hello: world
----
-
 <script setup>
 import { ref } from 'vue';
 
@@ -11,6 +7,8 @@ const cameraPosition = [0, 400, 450];
 </script>
 
 # GCode Preview
+
+Drop a `.gcode` file onto the canvas to preview your own print.
 
 ```vue
 <GCodePreview
