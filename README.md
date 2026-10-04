@@ -47,7 +47,8 @@ import { GCodePreview } from 'gcode-preview-vue';
 | `gcode` | `string \| string[]` | G-code to process directly. Wins over `src` when both are set. |
 
 Changing `src` or `gcode` starts a new load: the previous fetch is aborted and
-the preview is cleared. Unsetting both clears the preview.
+the preview is cleared. Unsetting both clears the preview. A new `gcode` array
+starts a new load even if its lines are the same.
 
 Every other prop is an option of the core `GCodePreview` (all of
 `GCodePreviewOptions` except `canvas`), with the same name and type. See the

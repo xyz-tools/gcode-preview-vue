@@ -33,7 +33,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vite build -c vite.lib.config.ts && vue-tsc -p tsconfig.build.json",
+    "build": "vite build -c vite.lib.config.ts && vue-tsc -p tsconfig.build.json && node scripts/fix-dts.js",
     "build:demo": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "prepack": "npm run build",
@@ -52,10 +52,10 @@
     "gcode-preview": "^3.0.0-alpha.6",
     "happy-dom": "^20.14.5",
     "publint": "^0.3.25",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0",
     "vite": "^8.3.2",
     "vitest": "^5.0.3",
-    "vue": "^3.5.13",
+    "vue": "^3.5.43",
     "vue-tsc": "^3.3.12"
   }
 }

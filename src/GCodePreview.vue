@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { GCodePreview } from 'gcode-preview';
 import { getCurrentInstance, onBeforeUnmount, onMounted, shallowRef, watch } from 'vue';
-import { LIVE_OPTIONS, applyOption, pickOptions, sameValue, type GCodePreviewProps } from './options';
+import { LIVE_OPTIONS, applyOption, pickOptions, sameValue, type GCodePreviewProps } from './options.js';
 
 // Boolean props default to `false` in Vue when absent; an explicit undefined
 // default keeps them absent so the core's own defaults apply.
