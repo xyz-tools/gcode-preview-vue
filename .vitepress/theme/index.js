@@ -1,6 +1,6 @@
 // .vitepress/theme/index.js
 import DefaultTheme from 'vitepress/theme'
-import GcodePreview from '../../GCodePreview.vue'
+import { GCodePreview } from '../../src'
 
 import './custom.css';
 
@@ -9,6 +9,6 @@ export default {
   extends: DefaultTheme,
   enhanceApp({ app }) {
     // register your custom global components
-    app.component('GCodePreview', GcodePreview)
+    app.component('GCodePreview', GCodePreview)
   }
 }

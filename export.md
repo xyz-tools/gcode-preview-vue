@@ -8,7 +8,8 @@ import { STLExporter } from 'three/addons/exporters/STLExporter.js';
 
 const layerHeight = ref(0.2);
 const lineWidth = ref(0.6);
-const preview = ref();
+const status = ref('Loading…');
+const previewRef = ref();
 let link;
 
 onMounted(() => {
@@ -29,7 +30,7 @@ function handleExport() {
   const options = { binary: true }
 
   // Parse the input and generate the STL encoded output
-  const mesh = preview.value.getModel();
+  const mesh = previewRef.value.preview.sceneManager.scene;
   const result = exporter.parse(mesh, options);
 
   const file = 'model.stl';
@@ -64,8 +65,9 @@ function saveArrayBuffer( buffer, filename ) {
 <input type="number" />
 <input type="number" />
 
-<GCodePreview src="benchy.gcode" />
+<GCodePreview ref="previewRef" src="benchy.gcode" :line-height="layerHeight" :extrusion-width="lineWidth" />
 
+<button @click="handleExport">Export</button>
 ```
 <div class="mb-3">
 <label>Layer height</label> <input v-model.number="layerHeight" type="number" min="0.01" step="0.05" />
@@ -74,10 +76,32 @@ function saveArrayBuffer( buffer, filename ) {
 <label>Line width</label> <input v-model.number="lineWidth" type="number" min="0.01" step="0.05" />
 </div>
 
-<GCodePreview ref="preview" src="benchy.gcode" :layerHeight="layerHeight" :lineWidth="lineWidth"  />
+<GCodePreview
+  ref="previewRef"
+  class="preview"
+  src="benchy.gcode"
+  droppable
+  render-tubes
+  :build-volume="{ x: 250, y: 220, z: 150 }"
+  :initial-camera-position="[0, 400, 450]"
+  extrusion-color="cyan"
+  :line-height="layerHeight"
+  :extrusion-width="lineWidth"
+  @load="status = ''"
+  @error="error => (status = error.message)"
+/>
 
-<button @click.prevent="handleExport">Export</button>
+<p v-if="status" role="status">{{ status }}</p>
+
+<button :disabled="!!status" @click.prevent="handleExport">Export</button>
 <style >
+  .preview {
+    display: block;
+    width: 100%;
+    height: 400px;
+    outline: none;
+  }
+
   input {
     border: 2px solid black;
     margin-bottom: 5px;

@@ -1,24 +1,64 @@
 {
-  "name": "docs",
-  "version": "0.0.1",
-  "description": "live examples",
-  "main": "index.js",
+  "name": "gcode-preview-vue",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vue 3 component for gcode-preview: render a 3D preview of G-code on a canvas",
+  "keywords": [
+    "gcode",
+    "g-code",
+    "3d-printing",
+    "preview",
+    "three",
+    "vue",
+    "vue3",
+    "component"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyz-tools/gcode-preview-vue.git"
+  },
+  "homepage": "https://github.com/xyz-tools/gcode-preview-vue#readme",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vitepress dev",
-    "build": "vitepress build",
-    "preview": "vitepress preview"
+    "build": "vite build && vue-tsc -p tsconfig.build.json",
+    "prepack": "npm run build",
+    "test": "vitest run",
+    "typecheck": "vue-tsc --noEmit",
+    "lint:package": "publint",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "vitepress": "^1.6.4"
-  },
-  "dependencies": {
+  "peerDependencies": {
     "gcode-preview": "^3.0.0-alpha.6",
-    "three": "^0.185.1"
+    "vue": "^3.3.0"
   },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "*"
+  "devDependencies": {
+    "@types/three": "~0.185.4",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "@vue/test-utils": "^2.5.1",
+    "gcode-preview": "^3.0.0-alpha.6",
+    "happy-dom": "^20.14.5",
+    "publint": "^0.3.25",
+    "three": "^0.185.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.2",
+    "vitepress": "^1.6.4",
+    "vitest": "^5.0.3",
+    "vue": "^3.5.13",
+    "vue-tsc": "^3.3.12"
   }
 }
